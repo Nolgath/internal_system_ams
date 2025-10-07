@@ -3,6 +3,7 @@ from io import BytesIO
 import pandas as pd
 from scraper import get_equipment_value
 from condition_report import get_condition_report
+import os
 app = Flask(__name__)
 @app.route("/", methods=["GET", "POST"])
 def home():
