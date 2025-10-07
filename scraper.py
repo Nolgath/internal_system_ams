@@ -1,3 +1,22 @@
+import os
+import subprocess
+
+# Ensure Chromium is installed before importing Playwright
+cache_path = os.path.expanduser("~/.cache/ms-playwright")
+chromium_path = os.path.join(cache_path, "chromium_headless_shell-1187")
+
+if not os.path.exists(chromium_path):
+    try:
+        print("Chromium not found — installing now...")
+        subprocess.run(
+            ["python", "-m", "playwright", "install", "chromium", "--with-deps"],
+            check=True
+        )
+        print("Chromium installed successfully.")
+    except Exception as e:
+        print("Playwright install failed:", e)
+
+
 from playwright.sync_api import sync_playwright
 import time
 
