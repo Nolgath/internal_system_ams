@@ -1,11 +1,5 @@
-#form_input{
-    float: left;
-    padding-right: 50px;
-    padding-left: 50px;
-}
-
-p{
-    padding-left: 50px;
+#vin_input {
+  text-align: center;
 }
 
 #text_title{
@@ -15,8 +9,4 @@ p{
 
 #submit_button{
     width: 200px;
-}
-
-#vin_input{
-    align-items: center;
 }

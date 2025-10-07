@@ -26,17 +26,17 @@ def home():
         # Show results on screen
         results_text = "\n".join(f"{r['VIN']} | {r['Equipment']}" for r in table_data)
 
-        # ✅ Convert to DataFrame
+        #  Convert to DataFrame
         df = pd.DataFrame(table_data)
 
-        # ✅ Create Excel file in memory
+        #  Create Excel file in memory
         output = BytesIO()
         with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
             df.to_excel(writer, index=False, sheet_name="Data")
 
         output.seek(0)
 
-        # ✅ Send file for download
+        # Send file for download
         return send_file(
             output,
             as_attachment=True,
