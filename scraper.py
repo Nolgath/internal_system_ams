@@ -27,4 +27,3 @@ def get_equipment_value(vin):
 
         browser.close()
         return value
-

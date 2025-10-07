@@ -16,3 +16,7 @@ p{
 #submit_button{
     width: 200px;
 }
+
+#vin_input{
+    align-items: center;
+}
