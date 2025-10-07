@@ -11,14 +11,21 @@ RUN apt-get update && apt-get install -y \
 # Set working directory
 WORKDIR /app
 
-# Copy your project files into the container
+# Copy everything to /app
 COPY . /app
 
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Install Playwright browser (Chromium only)
-RUN playwright install chromium
+# Install Playwright browsers *inside* the Docker image
+RUN python -m playwright install --with-deps chromium
 
-# Start your Flask app using gunicorn
+# Set environment variables for Playwright runtime
+ENV PLAYWRIGHT_BROWSERS_PATH=/root/.cache/ms-playwright
+ENV PYTHONUNBUFFERED=1
+
+# Expose Render's port
+EXPOSE 10000
+
+# Start Flask app using Gunicorn
 CMD ["gunicorn", "basic:app", "--bind", "0.0.0.0:10000"]
