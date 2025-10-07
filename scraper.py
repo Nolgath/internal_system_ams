@@ -1,34 +1,17 @@
-import os
-import subprocess
-
-# Ensure Chromium is installed before importing Playwright
-cache_path = os.path.expanduser("~/.cache/ms-playwright")
-chromium_path = os.path.join(cache_path, "chromium_headless_shell-1187")
-
-if not os.path.exists(chromium_path):
-    try:
-        print("Chromium not found — installing now...")
-        subprocess.run(
-            ["python", "-m", "playwright", "install", "chromium", "--with-deps"],
-            check=True
-        )
-        print("Chromium installed successfully.")
-    except Exception as e:
-        print("Playwright install failed:", e)
-
-
 from playwright.sync_api import sync_playwright
 import time
 
-vin = 'KMHKN81AFNU108307'
-
-#WAUZZZF25LN099526
-
-
 def get_equipment_value(vin):
     with sync_playwright() as p:
-
-        browser = p.chromium.launch(headless=True)
+        browser = p.chromium.launch(
+            headless=True,
+            args=[
+                "--no-sandbox",
+                "--disable-setuid-sandbox",
+                "--disable-dev-shm-usage",
+                "--disable-gpu",
+            ]
+        )
         page = browser.new_page()
         page.goto("https://ams-de.mega-moves.com/")
         page.fill("input[name=username]", "c.zorila")
@@ -46,4 +29,3 @@ def get_equipment_value(vin):
 
         browser.close()
         return value
-
