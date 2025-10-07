@@ -1,4 +1,3 @@
-flask
-pandas
-xlsxwriter
-playwright
+Flask==3.0.3
+gunicorn
+playwright==1.48.0
