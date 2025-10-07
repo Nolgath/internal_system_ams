@@ -1,17 +1,15 @@
 from playwright.sync_api import sync_playwright
 import time
 
+vin = 'KMHKN81AFNU108307'
+
+#WAUZZZF25LN099526
+
+
 def get_equipment_value(vin):
     with sync_playwright() as p:
-        browser = p.chromium.launch(
-            headless=True,
-            args=[
-                "--no-sandbox",
-                "--disable-setuid-sandbox",
-                "--disable-dev-shm-usage",
-                "--disable-gpu",
-            ]
-        )
+
+        browser = p.chromium.launch(headless=True)
         page = browser.new_page()
         page.goto("https://ams-de.mega-moves.com/")
         page.fill("input[name=username]", "c.zorila")
@@ -29,3 +27,4 @@ def get_equipment_value(vin):
 
         browser.close()
         return value
+
