@@ -34,4 +34,5 @@ ENV PLAYWRIGHT_BROWSERS_PATH=/root/.cache/ms-playwright
 ENV PYTHONUNBUFFERED=1
 
 EXPOSE 10000
-CMD ["gunicorn", "basic:app", "--bind", "0.0.0.0:10000"]
+CMD ["gunicorn", "basic:app", "--timeout", "180", "--workers", "1", "--threads", "1", "--bind", "0.0.0.0:5000"]
+
