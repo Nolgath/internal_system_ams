@@ -3,6 +3,12 @@ services:
     name: web-3-testing
     env: python
     buildCommand: |
+      pip install --upgrade pip
       pip install -r requirements.txt
-      playwright install --with-deps chromium
-    startCommand: python basic.py
+      python -m playwright install chromium
+    startCommand: gunicorn basic:app --bind 0.0.0.0:$PORT
+    envVars:
+      - key: PLAYWRIGHT_BROWSERS_PATH
+        value: /usr/local/share/playwright-browsers
+      - key: PYTHONUNBUFFERED
+        value: "true"
