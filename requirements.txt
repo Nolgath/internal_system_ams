@@ -3,3 +3,4 @@ gunicorn
 playwright==1.48.0
 pandas
 requests==2.32.3
+apscheduler
