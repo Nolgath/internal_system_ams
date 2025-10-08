@@ -5,6 +5,7 @@ from scraper import get_equipment_value
 from conditionreports import conditionreports
 from apscheduler.schedulers.background import BackgroundScheduler
 from download_excel import download_excel
+import requests
 app = Flask(__name__)
 @app.route("/", methods=["GET", "POST"])
 def home():
