@@ -1,17 +1,10 @@
 from flask import Flask, render_template, request, send_file, Response
 from io import BytesIO
 import pandas as pd
-<<<<<<< HEAD
 from scraper import get_equipment_value
-from condition_report import get_condition_report
-import os
-=======
 from conditionreports import conditionreports
 from apscheduler.schedulers.background import BackgroundScheduler
-from datetime import datetime
-import requests
 from download_excel import download_excel
->>>>>>> b60260c (update something)
 app = Flask(__name__)
 @app.route("/", methods=["GET", "POST"])
 def home():
