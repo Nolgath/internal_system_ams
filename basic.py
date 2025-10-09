@@ -1,39 +1,35 @@
 from flask import Flask, render_template, request, send_file, Response
 from io import BytesIO
 import pandas as pd
-from scraper import get_equipment_value
+from equipment_export import equipment_export
 from conditionreports import conditionreports
 from apscheduler.schedulers.background import BackgroundScheduler
 from download_excel import download_excel
 import requests
-app = Flask(__name__)
-@app.route("/", methods=["GET", "POST"])
-def home():
-    results_text = ""
-    table_data = []
-    if request.method == "POST":
-        user_input = request.form.get("user_input", "")
-        vins = [v.strip() for v in user_input.splitlines() if v.strip()]
-        for vin in vins:
-            value = get_equipment_value(vin)
-            table_data.append({"VIN": vin, "Equipment": value})
-        df = pd.DataFrame(table_data)
-        output = BytesIO()
-        with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
-            df.to_excel(writer, index=False, sheet_name="Data")
-        output.seek(0)
-        return send_file(
-            output,
-            as_attachment=True,
-            download_name="textarea_data.xlsx",
-            mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-        )
-    return render_template("index.html", results=results_text)
+import os
 
 scheduler = BackgroundScheduler()
 scheduler.add_job(download_excel, 'cron', hour=6, minute=0)  # runs every day at 06:00
 scheduler.start()
-
+app = Flask(__name__)
+@app.route("/", methods=["GET", "POST"])
+def home():
+    return render_template("index.html")
+@app.route("/equipment_export", methods=["GET", "POST"])
+def equipment_export_route():
+    if request.method == "POST":
+        user_input = request.form.get("user_input", "")
+        vins = [v.strip() for v in user_input.splitlines() if v.strip()]
+        # Call function and get Excel file
+        excel_file = equipment_export(vins)
+        # Send it to the user for download
+        return send_file(
+            excel_file,
+            as_attachment=True,
+            download_name="equipment_export.xlsx",
+            mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        )
+    return render_template("equipment_export.html")
 @app.route('/condition_report', methods=['GET','POST'])
 def condition_report():
     if request.method == 'POST':
@@ -41,7 +37,6 @@ def condition_report():
         vins = [v.strip() for v in user_input.splitlines() if v.strip()]
 
         conditionreports(vins)
-
         # sending zip file to user
         zip_path = 'ConditionReports.zip'
         if os.path.exists(zip_path):
@@ -51,7 +46,6 @@ def condition_report():
                 download_name="ConditionReports.zip",
                 mimetype="application/zip"
             )
-
     return render_template('condition_reports.html')
 
 if __name__ == "__main__":
