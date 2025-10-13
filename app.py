@@ -12,7 +12,7 @@ scheduler = BackgroundScheduler()
 scheduler.add_job(download_excel, 'cron', hour=6, minute=0)  # runs every day at 06:00
 scheduler.start()
 app = Flask(__name__)
-@app.route("/", methods=["GET", "POST"])
+@app.route("/")
 def home():
     return render_template("index.html")
 @app.route("/equipment_export", methods=["GET", "POST"])
@@ -30,6 +30,7 @@ def equipment_export_route():
             mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         )
     return render_template("equipment_export.html")
+
 @app.route('/condition_report', methods=['GET','POST'])
 def condition_report():
     if request.method == 'POST':

@@ -1,17 +1,13 @@
-#text_title{
-    text-align: center;
-    padding-top: 50px;
-    font-weight: bold;
+/* Main content styles */
+.main-content {
+    flex-grow: 2;
+    padding: 100px;
 }
 
-#submit_button{
-    width: 200px;
+.index_container h1 {
+    padding-bottom: 10px;
 }
 
-#condition_report_box{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 70vh;
-    gap: 20px
+p{
+    padding-top: 10px;
 }

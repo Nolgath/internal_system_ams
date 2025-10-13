@@ -15,7 +15,7 @@ def equipment_export(vins):
 
     df = pd.read_excel('stock_list.xlsx')
 
-    df['FIN'] = df['FIN'].str.strip()
+    df['FIN'] = (df['FIN'].astype(str).str.upper().str.strip().str.replace(r'\s+', '', regex=True))
     df['Link Backend'] = df['Link Backend'].str.strip()
 
     vin_url_pairs = list(zip(df['FIN'], df['Link Backend']))
