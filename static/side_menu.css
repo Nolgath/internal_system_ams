@@ -6,6 +6,7 @@
 
 body {
     font-family: "Outfit", sans-serif;
+    background-color: #f4f4f4;
 }
 
 .wrapper {
@@ -38,11 +39,18 @@ body {
 }
 
 .container ul button {
-    background-color: lightskyblue;
-    color: #fff;
+    background: linear-gradient(to top, rgba(34, 193, 195,0.2), rgba(253, 187, 45, 0.3));
+    color: #000;
     border: none;
     padding: 10px 20px;
     cursor: pointer;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.container ul button:hover {
+    background: linear-gradient(to top, rgba(253, 187, 45, 0.3), rgba(34, 193, 195,0.2));
+    scale: 1.05;
 }
 
 

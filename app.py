@@ -4,17 +4,35 @@ import pandas as pd
 from equipment_export import equipment_export
 from conditionreports import conditionreports
 from apscheduler.schedulers.background import BackgroundScheduler
-from download_excel import download_excel
+from download_excel import download_excel_stock,download_excel_sales
+from kpis import n_of_cars, brands_available, count_p_brand, units_sold
 import requests
 import os
 
 scheduler = BackgroundScheduler()
-scheduler.add_job(download_excel, 'cron', hour=6, minute=0)  # runs every day at 06:00
+scheduler.add_job(download_excel_stock, 'cron', hour=6, minute=0)  # runs every day at 06:00
+scheduler.add_job(download_excel_sales, 'cron', hour=6, minute=5)  # runs every day at 06:00
 scheduler.start()
-app = Flask(__name__)
-@app.route("/")
+app = Flask(__name__, template_folder='templates')
+app.config['TEMPLATES_AUTO_RELOAD'] = True
+app.config['DEBUG'] = True
+
+@app.route("/", methods=["GET", "POST"])
 def home():
-    return render_template("index.html")
+    brand_selected = request.form.get("brand", "")
+    total_cars = n_of_cars()
+    brands = brands_available()
+    brand_count = count_p_brand(brand_selected) if brand_selected else ""
+    units_sold_brand = units_sold(brand_selected) if brand_selected else ""
+    return render_template(
+        "index.html",
+        total_cars=total_cars,
+        brands=brands,
+        brand_count=brand_count,
+        brand_selected=brand_selected,
+        units_sold_brand=units_sold_brand
+    )
+
 @app.route("/equipment_export", methods=["GET", "POST"])
 def equipment_export_route():
     if request.method == "POST":

@@ -2,11 +2,36 @@
 
 {% block content %}
 
-<div class="index_container">
-    <h1>Welcome to TradeX Internal</h1>
-    <p>This internal platform was built to make your daily work easier, faster, and more efficient.
-Access useful tools, smart automations, and data insights — all in one place.
-Our goal: simplify your workflow, save time, and help you focus on delivering great results.</p>
+<div id="welcome_text">
+    <h1>Main Dashboard</h1>
+<br>
+
+<p id="brands_title_center">Brands Available</p>
+
+<section id="dashboard_section">
+
+  <div id="kpis_cars_available">
+      <p>Cars in Stock</p>
+      <p>{{ total_cars }}</p>
+  </div>
+
+  <div id="brands_available">
+      {% for brand in brands %}
+            <form action="/" method="POST" style="display:inline;">
+                <input type="hidden" name="brand" value="{{ brand }}">
+                <div id="brand" role="button" tabindex="0" onclick="this.closest('form').submit()">
+                    {{ brand }}
+                </div>
+            </form>
+    {% endfor %}
+  </div>
+</section>
+
+      {% if brand_count %}
+<div id="selected_brand_output">
+      <p class="output_result_kpi"><span class="kpi_number">{{ brand_count }}</span> {{ brand_selected }}'s in stock. </p>
+      <p class="output_result_kpi"><span class="kpi_number">{{units_sold_brand}}</span> {{ brand_selected }} sold last 30 days.</p>
+    {% endif %}
 </div>
 
 {% endblock content %}

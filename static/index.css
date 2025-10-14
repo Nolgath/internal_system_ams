@@ -1,0 +1,71 @@
+#welcome_text{
+    margin: 50px;
+    text-align: center;
+}
+#dashboard_section {
+    display: flex;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+#kpis_cars_available {
+    border: 1px solid black;
+    border-radius: 10px;
+    text-align: center;
+    align-content: center;
+    padding: 10px;
+    margin: 10px;
+    background: #D1FFFE;
+}
+#kpis_cars_available p:last-child{
+    font-size: 20px;
+    font-weight: bold;
+}
+#brands_available {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+}
+#brands_section {
+    text-align: center;
+}
+#brand {
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+    background: #D1FFFE;
+    text-align: center;
+}
+#brand:hover {
+    scale: 1.05;
+}
+
+#brand:active {
+    background: #8cff9f;
+}
+
+#brands_title_center {
+    text-align: center;
+    padding-bottom: 50px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* Brand output */
+#selected_brand_output{
+    text-align: left;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+.output_result_kpi {
+    margin: 50px;
+}
+
+.kpi_number{
+    font-size: 20px;
+    font-weight: bold;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 10px;
+    background: #8cff9f;
+}
