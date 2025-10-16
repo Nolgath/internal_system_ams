@@ -3,36 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <title>Equipment Scraper V1</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='side_menu.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='navigation.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-    <div class="wrapper">
+    <div class="navbar">
 
         <!-- Sidebar -->
-        <div class="sidebar">
-            <div class="container">
-                <h2>TradeX</h2>
+            <nav class="nav-buttons">
+                <h2>TradeX Internal</h2>
                 <ul>
                     <li><button onclick="window.location.href='{{ url_for('home') }}'" >Home</button></li>
                     <li><button onclick="window.location.href='{{ url_for('equipment_export_route') }}'" >Equipment Export</button></li>
                     <li><button onclick="window.location.href='{{ url_for('condition_report') }}'" >Condition Reports</button></li>
                 </ul>
-            </div>
-        </div>
+            </nav>
+    </div>
 
         <!-- Main content (block for Flask pages) -->
-        <div class="main-content">
+        <main>
             {% block content %}
             {% endblock content %}
-        </div>
+        </main>
 
-    </div>
+
 
 </body>
 </html>
